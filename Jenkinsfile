@@ -15,7 +15,7 @@ pipeline{
                 }
             }
         }
-        stage("Setting up our virtual environment and installing dependencies"){
+        stage('Setting up our virtual environment and installing dependencies'){
             steps{
                 script{
                     echo 'Setting up our virtual environment and installing dependencies------------ '
