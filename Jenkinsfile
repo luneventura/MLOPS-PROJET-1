@@ -7,7 +7,7 @@ pipeline{
         GCLOUD_PATH="/var/jenkins_home/google-cloud-sdk/bin"
     } 
     stages{
-        stage("Cloning Github repo to Jenkins"){ 
+        stage('Cloning Github repo to Jenkins'){ 
             steps{
                 script{
                     echo 'Cloning Github repo to Jenkins------------ '
@@ -15,7 +15,7 @@ pipeline{
                 }
             }
     }
-        stage("Setting up our virtual environment and installing dependencies"){
+        stage('Setting up our virtual environment and installing dependencies'){
             steps{
                 script{
                     echo 'Setting up our virtual environment and installing dependencies------------ '
@@ -50,3 +50,5 @@ pipeline{
             }
         }
      }  
+
+}
