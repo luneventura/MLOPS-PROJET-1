@@ -3,6 +3,8 @@ pipeline{
 
     environment{
         VENV_DIR='venv'
+        GCP_PROJECT="bubbly-buttress-455812-g4"
+        GCLOUD_PATH="/var/jenkins_home/google-cloud-sdk/bin"
     } 
     stages{
         stage("Cloning Github repo to Jenkins"){
@@ -26,5 +28,25 @@ pipeline{
                 }
             }
         }
-    }
+        stage("Building and pushing Docker images to GCP"){
+            steps{
+                withCredentials([file(credentialsId :'gcp-key', variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                    script{
+                        echo 'Building and pushing Docker images to GCP......'
+                        sh '''
+                        export PATH=$PATH:${GCLOUD_PATH}
+                        gcloud auth activate-service-account --key-file{GOOGLE_APPLICATION_CREDENTIALS'}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud auth configure-docker --quiet
+                        docker build -t gcr.io/${GCP_PROJECT}/ml-project:latest .
+                        docker push gcr.io/${GCP_PROJECT}/ml-project:latest 
+                        
+    
+                        '''
+                    }
+                }
+                
+            }
+        }
+    }    
 }
