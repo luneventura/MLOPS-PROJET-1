@@ -7,8 +7,8 @@ pipeline{
         GCLOUD_PATH="/var/jenkins_home/google-cloud-sdk/bin"
     } 
     stages{
-        stage("Cloning Github repo to Jenkins"){
-            steps{
+        stage('Cloning Github repo to Jenkins') 
+            step
                 script{
                     echo 'Cloning Github repo to Jenkins------------ '
                     checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/luneventura/MLOPS-PROJET-1.git']])
@@ -28,7 +28,7 @@ pipeline{
                 }
             }
         }
-        stage("Building and pushing Docker images to GCP"){
+        stage('Building and pushing Docker images to GCP'){
             steps{
                 withCredentials([file(credentialsId :'gcp-key', variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
                     script{
